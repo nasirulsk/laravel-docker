@@ -1,0 +1,28 @@
+version: '3'
+services:
+    php:
+        container_name: fatagent_php_container
+        build: .
+        volumes:
+            - ./laravel:/var/www/html
+        depends_on:
+            - mysql
+            - phpmyadmin
+        ports:
+            - 8000:80
+    mysql:
+        image: mysql:latest
+        container_name: fatagent_mysql_container
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: docker_fatagent
+        ports:
+            - 3306:3306
+    phpmyadmin:
+        image: phpmyadmin:latest
+        container_name: fatagent_phpmyadmin_container
+        environment:
+            - PMA_ARBITRARY=1
+        ports:
+            - 8080:80
+        
